@@ -1,4 +1,5 @@
 from pico2d import *
+#drill5
 
 KPU_WIDTH, KPU_HEIGHT = 1280, 1024
 HAND_WIDTH, HAND_HEIGHT = 50,52
