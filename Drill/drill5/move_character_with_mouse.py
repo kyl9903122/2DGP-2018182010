@@ -43,9 +43,9 @@ while running:
     clear_canvas()
     kpu_ground.draw(KPU_WIDTH // 2, KPU_HEIGHT // 2)
     if(x == character_x and y == character_y):
-        character.clip_draw(frame * 100, 100 * 1, 100, 100, character_x, character_y)
-    else:
         character.clip_draw(0, 100 * 3, 100, 100, character_x, character_y)
+    else:
+        character.clip_draw(frame * 100, 100 * 1, 100, 100, character_x, character_y)
     hand_arrow.clip_draw(0,0,HAND_WIDTH,HAND_HEIGHT,arrow_x,arrow_y)
     update_canvas()
     frame = (frame + 1) % 8
