@@ -15,8 +15,8 @@ n  = 0
 while True:
     for i in range(0,50):
         t = i / 100
-        character_x = (2 * t ** 2 - 3 * t + 1) * p1[0] + (-4 * t ** 2 + 4 * t) * p2[0] + (2 * t ** 2 - t) * p3[0]
-        character_y = (2 * t ** 2 - 3 * t + 1) * p1[1] + (-4 * t ** 2 + 4 * t) * p2[1] + (2 * t ** 2 - t) * p3[1]
+        character_x = (2 * t ** 2 - 3 * t + 1) * character_x[0] + (-4 * t ** 2 + 4 * t) * character_x[1] + (2 * t ** 2 - t) * character_x[2]
+        character_y = (2 * t ** 2 - 3 * t + 1) * character_y[0] + (-4 * t ** 2 + 4 * t) * character_y[1] + (2 * t ** 2 - t) * character_y[2]
         draw_point((x, y))
         background.draw(KPU_WIDTH // 2, KPU_HEIGHT // 2)
         if (vertex_x[n + 1] < vertex_x[n]):
