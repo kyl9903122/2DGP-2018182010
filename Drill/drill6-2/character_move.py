@@ -1,6 +1,6 @@
 from pico2d import*
 import random
-
+#drill 6-2 2018182010 김유림
 KPU_WIDTH, KPU_HEIGHT = 1280,1024
 
 vertex_x = [random.randint(200,1000) for n in range(10)]
