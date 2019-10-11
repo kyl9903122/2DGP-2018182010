@@ -1,5 +1,6 @@
 import turtle
 import random
+#2018182010 김유림
 
 
 def stop():
