@@ -59,7 +59,7 @@ def handle_events():
             running = False
 
 # initialization code
-open_canvas()
+open_canvas(700, 500)
 boy = Boy()
 team = [Boy() for i in range(11)]
 grass = Grass()
@@ -70,7 +70,7 @@ running =True
 
 # game main loop code
 while running:
-    handle_events(700, 500)
+    handle_events()
 
     for boy in team:
         boy.update()
