@@ -28,7 +28,7 @@ class Ball:
     def __init__(self):
         self.size = random.randint(0, 1)
         if(self.size == 0):
-            self.x, self.y = random.randint(100, 600), 490
+            self.x, self.y = random.randint(50, 650), 490
         else:
             self.x, self.y = random.randint(100, 600), 480
         self.speed = random.randint(3, 10)
