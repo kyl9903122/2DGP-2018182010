@@ -31,7 +31,7 @@ class Ball:
             self.x, self.y = random.randint(50, 650), 490
         else:
             self.x, self.y = random.randint(100, 600), 480
-        self.speed = random.randint(3, 10)
+        self.speed = random.randint(7, 13)
         if(self.size == 0):
             self.image = load_image('ball21x21.png')
         else:
