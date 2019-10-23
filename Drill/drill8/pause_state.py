@@ -4,7 +4,7 @@ from pico2d import*
 
 def enter():
     global image
-    image = load_image('title.png')
+    image = load_image('pause.png')
     pass
 
 
