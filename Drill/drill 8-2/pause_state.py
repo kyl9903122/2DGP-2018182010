@@ -40,6 +40,7 @@ def draw():
     update_canvas()
     pass
 
+
 def update():
     global icon_time
     icon_time += 1
