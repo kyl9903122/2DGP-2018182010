@@ -8,6 +8,7 @@ def enter():
     pass
 
 
+
 def exit():
     global image
     del(image)
