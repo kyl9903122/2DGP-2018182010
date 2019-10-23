@@ -43,7 +43,8 @@ def draw():
 def update():
     global icon_time
     icon_time += 1
-    delay(0.5)
+    if(icon_time>0):
+        delay(0.5)
     pass
 
 
