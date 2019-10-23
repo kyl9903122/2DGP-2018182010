@@ -5,7 +5,7 @@ from pico2d import*
 icon_time = 0
 
 def enter():
-    global image
+    global image, icon_time
     image = load_image('pause.png')
     icon_time = 0
     pass
