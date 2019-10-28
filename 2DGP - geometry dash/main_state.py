@@ -84,9 +84,6 @@ def update():
     character_size = character.OutCharacterSize()
     for obstacle in obstacles_triangle:
         obstacle.Move(speed)
-        colide = obstacle.ColideCheck(character_x,character_y,character_size)
-        if(colide == True):
-            game_framework.change_state(title_state)
     for tile in tiles:
         tile.Move(speed)
     speed += 0.0001
