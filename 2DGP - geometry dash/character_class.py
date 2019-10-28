@@ -16,11 +16,10 @@ class CHARACTER:
         if (isJump == True):
             self.y += math.sin(degree / 360 * 2 * math.pi) * 4
             degree += 7
-            if(degree > 360):
+            if (degree >= 360):
                 isJump = False
                 degree = 0
         return isJump
-        pass
 
     def Draw(self):
         self.image.clip_draw(0, 0, 117, 118, self.x, self.y, self.size, self.size)
@@ -28,3 +27,6 @@ class CHARACTER:
 
     def OutCharacterPos(self):
         return self.x, self.y
+
+    def OutCharacterSize(self):
+        return self.size
