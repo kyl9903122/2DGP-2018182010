@@ -33,14 +33,15 @@ def enter():
     character = character_class.CHARACTER()
     background = background_class.BACKGROUND()
     # obstacle.x, obstacle.y
-    obstacles_triangle = [obstacle_class.OBSTACLE_TRIANGLE(i*100+i*10,115) for i in range(10)]
+    obstacles_triangle = []
     # tile.x, tile.y, tile.size_x, tile.size_y, tile.mode
     # mode : 1. basic_tile  2. tile2
-    tiles = [tile_class.TILE(i*100,50,100,100,1) for i in range(10)]
+    tiles = []
     global speed, isJump, real_x
     speed = 2.8
     isJump = False
     real_x = 0
+    ReadPos()
     pass
 
 
@@ -104,6 +105,51 @@ def draw():
     update_canvas()
     delay(0.01)
     pass
+
+
+def ReadPos():
+    f = open('tile_pos.txt',mode = 'rt')
+    #tile pos read
+
+    while True:
+        line = f.readline()
+        line.strip('\n')
+        if line == 'end\n' or (not line) or line == '':
+            break
+        tile_x = float(line)
+        line = f.readline()
+        line.strip('\n')
+        if  line == 'end\n' or (not line) or line == '':
+            break
+        tile_y=float(line)
+        line = f.readline()
+        line.strip('\n')
+        if  line == 'end\n' or not line or line == '':
+            break
+        tile_mode= int(line)
+        if(tile_mode == 1):
+            tiles.append(tile_class.TILE(tile_x,tile_y,100,100,1))
+        elif (tile_mode == 2):
+            tiles.append(tile_class.TILE(tile_x, tile_y, 70, 20, 2))
+
+
+    f2 = open('triangle_obstacle_pos.txt', mode='rt')
+    #triangle obstacle pos read
+    while True:
+        line = f2.readline()
+        line.strip('\n')
+        if line == "end\n" or not line or line == '':
+            break
+        tri_obs_x= float(line)
+        line = f2.readline()
+        line.strip('\n')
+        if  line == 'end\n' or not line or line == '':
+            break
+        tri_obs_y=float(line)
+        obstacles_triangle.append(obstacle_class.OBSTACLE_TRIANGLE(tri_obs_x,tri_obs_y))
+
+    f.close()
+    f2.close()
 
 
 

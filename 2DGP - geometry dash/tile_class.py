@@ -12,7 +12,7 @@ class TILE:
         pass
 
     def Move(self, speed):
-        if(self.x>-self.size_x/2 and self.x<1000+self.size_x/2):
+        if(self.x>-self.size_x/2):
             self.x -= speed
         pass
 

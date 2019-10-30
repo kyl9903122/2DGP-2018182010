@@ -8,7 +8,7 @@ class OBSTACLE_TRIANGLE:
         pass
 
     def Move(self, speed):
-        if (self.x > (-self.size / 2) and self.x < (1000 + self.x / 2)):
+        if (self.x > (-self.size / 2)):
             self.x -= speed
         pass
 
