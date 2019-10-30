@@ -82,7 +82,10 @@ def handle_events():
 def update():
     global isJump, speed, real_x
     background.Move(speed)
-    isJump = character.Move(isJump)
+    if(isJump == False):
+        character.Fall(tiles)
+    isJump = character.Jump(isJump,tiles)
+
     character_x, character_y = character.OutCharacterPos()
     character_size = character.OutCharacterSize()
     for obstacle_triangle in obstacles_triangle:
@@ -91,6 +94,10 @@ def update():
             game_framework.quit()
     for tile in tiles:
         tile.Move(speed)
+        if tile.CheckDie(character_x, character_y,character_size) == "die":
+            game_framework.quit()
+
+
     speed += 0.0001
     real_x+=speed
     pass

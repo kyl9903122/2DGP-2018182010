@@ -203,8 +203,14 @@ def Create():
 def DeleteBlock():
     if(delete_idx =="tile"):
         del tiles[len(tiles)-1]
+        del tile_x[len(tiles)-1]
+        del tile_y[len(tiles)-1]
+        del tile_mode[len(tile_mode)-1]
+
     if(delete_idx == "tri_obs"):
         del tri_obses[len(tri_obses)-1]
+        del tri_obs_y[len(tri_obs_y)-1]
+        del tri_obs_x[len(tri_obs_x)-1]
     pass
 
 def ReadPos():
@@ -242,12 +248,14 @@ def ReadPos():
         if line == "end\n" or not line or line == '':
             break
         tri_obs_x.append(float(line))
+
         line = f2.readline()
         line.strip('\n')
         if  line == 'end\n' or not line or line == '':
             break
         tri_obs_y.append(float(line))
-        tri_obses.append(obstacle_class.OBSTACLE_TRIANGLE(tri_obs_x[len(tile_x)-1],tri_obs_y[len(tri_obs_y)-1]))
+
+        tri_obses.append(obstacle_class.OBSTACLE_TRIANGLE(tri_obs_x[len(tri_obs_x)-1],tri_obs_y[len(tri_obs_y)-1]))
 
     f.close()
     f2.close()
