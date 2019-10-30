@@ -26,6 +26,7 @@ obstacles_triangle = None
 isJump = False
 speed = 0
 degree = 0
+real_x = 0
 
 def enter():
     global character, background,  tiles, obstacles_triangle
@@ -36,9 +37,10 @@ def enter():
     # tile.x, tile.y, tile.size_x, tile.size_y, tile.mode
     # mode : 1. basic_tile  2. tile2
     tiles = [tile_class.TILE(i*100,50,100,100,1) for i in range(10)]
-    global speed, isJump
+    global speed, isJump, real_x
     speed = 2.8
     isJump = False
+    real_x = 0
     pass
 
 
@@ -77,7 +79,7 @@ def handle_events():
 
 
 def update():
-    global isJump, speed
+    global isJump, speed, real_x
     background.Move(speed)
     isJump = character.Move(isJump)
     character_x, character_y = character.OutCharacterPos()
@@ -87,6 +89,7 @@ def update():
     for tile in tiles:
         tile.Move(speed)
     speed += 0.0001
+    real_x+=speed
     pass
 
 
