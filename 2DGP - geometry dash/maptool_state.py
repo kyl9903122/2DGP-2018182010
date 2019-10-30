@@ -13,19 +13,24 @@ mode, tile1_x, tile1_y, tile2_x,tile2_y,mode3_x, mode3_y, kind = 0,0,0,0,0,0,0,0
 x, y, mx, my, size_x,size_y = 0,0,0,0,0,0
 image = None
 speed, inspeed = 0.28, 0
+stop = False
+
+
 
 def enter():
     global mode, tile1_x, tile1_y, tile2_x,tile2_y,mode3_x, mode3_y, kind
     mode = 't'
     kind = 1
-    tile1_x = [50,150,250,350,450]
-    tile1_y = [50,50,50,50,50,50]
+
     global image
     image = load_image('basic_tile.png')
-    global x, y, mx, my, size_x,size_y, real_x
+
+    global x, y, mx, my, size_x,size_y, real_x, stop
     size_x = 100
     size_y = 100
     real_x = 0
+    stop = False
+
     global background, speed,inspeed
     background = background_class.BACKGROUND()
     speed= 2.8
@@ -47,7 +52,7 @@ def resume():
 
 
 def handle_events():
-    global image, size_x, size_y, mx,my,x,y, inspeed
+    global image, size_x, size_y, mx,my,x,y, inspeed, stop
     events = get_events()
     for event in events:
         if event.type == SDL_KEYDOWN:
@@ -89,13 +94,15 @@ def handle_events():
                 game_framework.quit()
             if event.key == SDLK_s:
                 inspeed = 0
+                stop = True
             if event.key == SDLK_r:
                 inspeed = speed
-        if event.type == SDL_MOUSEBUTTONDOWN:
+                stop = False
+        elif event.type == SDL_MOUSEBUTTONDOWN:
             x = event.x
             y = 510-event.y -1
             Create()
-        if event.type == SDL_MOUSEMOTION:
+        elif event.type == SDL_MOUSEMOTION:
             mx = event.x
             my = 510 - event.y -1
 
@@ -103,18 +110,25 @@ def handle_events():
 
 
 def update():
-    global speed
+    global speed, real_x, inspeed
     background.Move(inspeed)
-    speed+=0.0001
+    real_x += inspeed
+    if(stop == False):
+        speed+=0.0001
+    if(stop == False):
+        inspeed = speed
+    delay(0.01)
     pass
 
 
 def draw():
+    hide_cursor()
     clear_canvas()
-    image.draw(mx,my,size_x,size_y)
     background.Draw()
+    image.draw(mx,my,size_x,size_y)
+
     update_canvas()
-    delay(0.01)
+
     pass
 
 def Create():
