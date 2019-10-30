@@ -48,20 +48,13 @@ def enter():
     delete_idx = "tile"
 
     ReadPos()
-    #init
-    for i in range(0,len(tile_x)):
-        if(tile_mode[i] == 1):
-            tiles.append(tile_class.TILE(tile_x[i],tile_y[i],100,100,1))
-        elif tile_mode[i] == 2:
-            tiles.append(tile_class.TILE(tile_x[i], tile_y[i], 70, 20, 2))
-
     pass
 
 
 def exit():
     # 모드를 나갈때 txt파일에 각 장애물, 타일의 pos값을 저장한다.
     f = open('tile_pos.txt', mode='wt')
-    for i in range(0,len(tiles)-1):
+    for i in range(0,len(tiles)):
         f.write(str(tile_x[i]))
         f.write('\n')
         f.write(str(tile_y[i]))
@@ -71,7 +64,7 @@ def exit():
     f.write('end\n')
 
     f2 = open('triangle_obstacle_pos.txt', mode = 'wt')
-    for i in range(0,len(tri_obses)-1):
+    for i in range(0,len(tri_obses)):
         f2.write(str(tri_obs_x[i]))
         f2.write('\n')
         f2.write(str(tri_obs_y[i]))
@@ -215,6 +208,7 @@ def DeleteBlock():
     pass
 
 def ReadPos():
+    global tile_x,tile_y,tile_mode,tri_obs_x,tri_obs_y,tiles,tri_obses
     f = open('tile_pos.txt',mode = 'rt')
     #tile pos read
     while True:
@@ -233,6 +227,11 @@ def ReadPos():
         if  line == 'end\n' or not line or line == '':
             break
         tile_mode.append(int(line))
+        if tile_mode[len(tile_mode)-1] == 1:
+            tiles.append(tile_class.TILE(tile_x[len(tile_x)-1],tile_y[len(tile_x)-1],100,100,1))
+        elif tile_mode[len(tile_mode)-1] == 2:
+            tiles.append(tile_class.TILE(tile_x[len(tile_x)-1],tile_y[len(tile_y)-1],70,20,2))
+
 
 
     f2 = open('triangle_obstacle_pos.txt', mode='rt')
@@ -248,6 +247,7 @@ def ReadPos():
         if  line == 'end\n' or not line or line == '':
             break
         tri_obs_y.append(float(line))
+        tri_obses.append(obstacle_class.OBSTACLE_TRIANGLE(tri_obs_x[len(tile_x)-1],tri_obs_y[len(tri_obs_y)-1]))
 
     f.close()
     f2.close()

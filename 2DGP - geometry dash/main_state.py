@@ -85,8 +85,10 @@ def update():
     isJump = character.Move(isJump)
     character_x, character_y = character.OutCharacterPos()
     character_size = character.OutCharacterSize()
-    for obstacle in obstacles_triangle:
-        obstacle.Move(speed)
+    for obstacle_triangle in obstacles_triangle:
+        obstacle_triangle.Move(speed)
+        if(obstacle_triangle.ColideCheck(character_x, character_y,character_size)):
+            game_framework.quit()
     for tile in tiles:
         tile.Move(speed)
     speed += 0.0001

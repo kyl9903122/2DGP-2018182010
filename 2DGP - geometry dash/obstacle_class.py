@@ -17,13 +17,11 @@ class OBSTACLE_TRIANGLE:
             self.image.draw(self.x,self.y,self.size,self.size)
         pass
 
-    def ColideCheck(self, character_x, character_y,character_size):
+    def ColideCheck(self, character_x, character_y, character_size):
         if (self.x > (-self.size / 2) and self.x < (1000 + self.x / 2)):
             dist = (character_x - self.x)*(character_x-self.x) + (character_y-self.y)*(character_y-self.y)
-            if(self.x>(-self.size/2) and self.x<(1000+self.x/2)):
-                if(dist<(character_size/2+self.size/2)*(character_size/2+self.size/2)):
-                    return True
-                else:
-                    return False
-            return False
-            pass
+            if(dist<(character_size/2+self.size/2)*(character_size/2+self.size/2)):
+                return True
+            else:
+                return False
+        return False
