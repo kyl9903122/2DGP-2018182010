@@ -24,13 +24,12 @@ real_x =0
 delete_idx = 0
 
 
-
 def enter():
     global mode, kind
     mode = 't'
     kind = 1
     global basic_tile_x, basic_tile_y, tile2_x, tile2_y, tri_obs_x, tri_obs_y
-
+    tile_x, tile_y, tile_mode, tri_obs_x, tri_obs_y = [], [], [], [], []
     global image
     image = load_image('basic_tile.png')
 
@@ -50,7 +49,7 @@ def enter():
 
     ReadPos()
     #init
-    for i in range(len(tile_x)):
+    for i in range(0,len(tile_x)):
         if(tile_mode[i] == 1):
             tiles.append(tile_class.TILE(tile_x[i],tile_y[i],100,100,1))
         elif tile_mode[i] == 2:
@@ -61,22 +60,23 @@ def enter():
 
 def exit():
     # 모드를 나갈때 txt파일에 각 장애물, 타일의 pos값을 저장한다.
-    f = open('tile_pos.txt', mode='wb')
-    for i in range(len(tiles)):
-        data = struct.pack('d', tile_x[i])
-        f.write(data)
-        data = struct.pack('d', tile_y[i])
-        f.write(data)
-        data = struct.pack('d', tile_mode[i])
-        f.write(data)
+    f = open('tile_pos.txt', mode='wt')
+    for i in range(0,len(tiles)-1):
+        f.write(str(tile_x[i]))
+        f.write('\n')
+        f.write(str(tile_y[i]))
+        f.write('\n')
+        f.write(str(tile_mode[i]))
+        f.write('\n')
+    f.write('end\n')
 
-    f2 = open('triangle_obstacle_pos.txt', mode = 'wb')
-    for i in range(len(tri_obses)):
-        data = struct.pack('d', tri_obs_x[i])
-        f.write(data)
-        data = struct.pack('d', tri_obs_y[i])
-        f.write(data)
-
+    f2 = open('triangle_obstacle_pos.txt', mode = 'wt')
+    for i in range(0,len(tri_obses)-1):
+        f2.write(str(tri_obs_x[i]))
+        f2.write('\n')
+        f2.write(str(tri_obs_y[i]))
+        f2.write('\n')
+    f2.write('end\n')
     f.close()
     f2.close()
 
@@ -215,37 +215,44 @@ def DeleteBlock():
     pass
 
 def ReadPos():
-    f = open('tile_pos.txt',mode = 'rb')
-    intsize = struct.calcsize('d')
+    f = open('tile_pos.txt',mode = 'rt')
     #tile pos read
     while True:
-        data = f.read(intsize)
-        if not data:
+        line = f.readline()
+        line.strip('\n')
+        if line == 'end\n' or (not line) or line == '':
             break
-        tile_x.append(struct.unpack('d',data))
-        data = f.read(intsize)
-        if not data:
+        tile_x.append(float(line))
+        line = f.readline()
+        line.strip('\n')
+        if  line == 'end\n' or (not line) or line == '':
             break
-        tile_y.append(struct.unpack('d', data))
-        data = f.read(intsize)
-        if not data:
+        tile_y.append(float(line))
+        line = f.readline()
+        line.strip('\n')
+        if  line == 'end\n' or not line or line == '':
             break
-        tile_mode.append(struct.unpack('d', data))
+        tile_mode.append(int(line))
 
 
-
-    f2 = open('triangle_obstacle_pos.txt', mode = 'rb')
-
+    f2 = open('triangle_obstacle_pos.txt', mode='rt')
     #triangle obstacle pos read
     while True:
-        data = f2.read(intsize)
-        if not data:
+        line = f2.readline()
+        line.strip('\n')
+        if line == "end\n" or not line or line == '':
             break
-        tri_obs_x.append(struct.unpack('d', data))
-        data = f2.read(intsize)
-        if not data:
+        tri_obs_x.append(float(line))
+        line = f2.readline()
+        line.strip('\n')
+        if  line == 'end\n' or not line or line == '':
             break
-        tri_obs_y.append(struct.unpack('d', data))
+        tri_obs_y.append(float(line))
 
     f.close()
     f2.close()
+
+
+
+
+
