@@ -11,7 +11,7 @@ class CHARACTER:
         self.size = 50
         global velocity,dir, fall
         velocity = 7
-        fall = -3
+        fall = -2
         dir = 1
 
     def Jump(self, isJump,tiles):
@@ -27,10 +27,10 @@ class CHARACTER:
             if(velocity < 0):
                 for tile in tiles:
                     tile_left,tile_right, tile_top, tile_bottom = tile.x - tile.size_x/2, tile.x+tile.size_x/2, tile.y+tile.size_y/2, tile.y-tile.size_y/2
-                    if (self.x - self.size / 2 > tile_left + 10 and self.x - self.size / 2 > tile_right - 10) or (
-                            self.x + self.size / 2 > tile_left + 10 and self.x + self.size / 2 < tile_right - 10):
-                        if (self.y - self.size / 2 <= tile_top ):
-                            self.y = tile_top + self.size/2
+                    if (self.x - self.size / 2 > tile_left +5 and self.x - self.size / 2 > tile_right - 5) or (
+                            self.x + self.size / 2 > tile_left + 5 and self.x + self.size / 2 < tile_right - 5):
+                        if ((self.y - self.size / 2)-3<= tile_top):
+                            self.y = tile_top + self.size/2+1
                             isJump = False
                             velocity = 7
         return isJump
@@ -38,14 +38,15 @@ class CHARACTER:
         global fall
         for tile in tiles:
             tile_left, tile_right, tile_top, tile_bottom = tile.x - tile.size_x / 2, tile.x + tile.size_x / 2, tile.y + tile.size_y / 2, tile.y - tile.size_y / 2
-            if (self.x - self.size / 2 > tile_left + 10 and self.x - self.size / 2 > tile_right - 10) or (
-                    self.x + self.size / 2 > tile_left + 10 and self.x + self.size / 2 < tile_right - 10):
-                if(self.y - self.size/2 >= tile_top  or self.y - self.size/2 <= tile_top):
-                    self.y = tile_top + self.size / 2
+            if (self.x - self.size / 2 > tile_left + 5 and self.x - self.size / 2 > tile_right - 5) or (
+                    self.x + self.size / 2 > tile_left + 5  and self.x + self.size / 2 < tile_right - 5):
+                if((self.y - self.size/2)-3<= tile_top):
+                    self.y = (tile_top + self.size / 2)+1
                     fall = -3
                     return
         self.y += fall
         fall -= 0.2
+
 
 
     def Draw(self):
