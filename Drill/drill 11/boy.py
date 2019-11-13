@@ -153,7 +153,7 @@ class Boy:
 
     def get_bb(self):
         # fill here
-        return self.x - 50, self.y-40,self.x + 50, self.y+50
+        return self.x - 30, self.y-40,self.x + 30, self.y+50
 
     def add_event(self, event):
         self.event_que.insert(0, event)
@@ -187,7 +187,7 @@ class Boy:
 
     def fall(self):
         self.y += self.fall_velocity * 100 * game_framework.frame_time
-        self.fall_velocity -= RUN_SPEED_PPS/10000
+        self.fall_velocity -= RUN_SPEED_PPS/2000
         if self.fall_velocity < -8:
             self.fall_velocity = -8
 

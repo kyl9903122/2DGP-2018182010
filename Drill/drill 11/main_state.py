@@ -97,10 +97,13 @@ def update():
             ball.change_collide_with_tile()
     if collide(boy, grass):
         boy.collide = True
+        boy.fall_velocity = 0
     elif collide(boy,tile):
         boy.collide = True
+        boy.fall_velocity = 0
     else:
         boy.collide = False
+
 
 
 
