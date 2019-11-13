@@ -4,7 +4,7 @@ from pico2d import *
 import game_world
 
 # bird speed
-PIXEL_PER_METER = ( 1 / 10.0)
+PIXEL_PER_METER = (1 / 10.0)
 RUN_SPEED_KMPH = 15.0
 RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
 RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
@@ -31,24 +31,24 @@ class BIRD:
             self.velocity += RUN_SPEED_PPS
         elif self.dir == -1:
             self.velocity -= RUN_SPEED_PPS
-        #self.dir = clamp(-1, self.velocity, 1)
+        self.velocity = clamp(-200, self.velocity, 200)
         self.x += self.velocity * game_framework.frame_time
-        print("velocity:", self.velocity, " self.x:", self.x, " dir: ", self.dir)
-        if self.x < 50 and self.dir == -1:
-            print("self.x: ", self.x , "self.dir: ", self.dir)
+        if self.x < 90 and self.dir == -1:
             self.dir = 1
             self.velocity = 0
-        elif self.x>900-50 and self.dir == 1:
+        elif self.x > 900 - 90 and self.dir == 1:
             self.dir = -1
             self.velocity = 0
 
-
     def draw(self):
+        print("enter draw")
         if self.dir == 1:
-            self.image.clip_draw((int(self.frame)%5) * 182, int(self.frame//5) * 163, 183, 163, self.x, self.y,100,100)
-            print(int(self.frame)%5 , int(self.frame//5))
+            self.image.clip_draw((int(self.frame) % 5) * 182, (2-int(self.frame // 5)) * 164, 183, 164, self.x, self.y, 180,
+                                 160)
+            print(int(self.frame) % 5, int(self.frame // 5))
         else:
-            self.image.clip_composite_draw(int(self.frame % 5) * 182, int(self.frame/5) * 163, 183, 163, 0, 'h', self.x, self.y,100,100)
+            self.image.clip_composite_draw(int(self.frame % 5) * 182, (2-int(self.frame / 5) )* 164, 183, 164, 0, 'h',
+                                           self.x, self.y, 180, 160)
             print(int(self.frame) % 5, int(self.frame // 5))
 
     def handle_event(self, event):
