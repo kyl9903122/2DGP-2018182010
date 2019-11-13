@@ -98,11 +98,16 @@ def update():
     if collide(boy, grass):
         boy.collide = True
         boy.fall_velocity = 0
+        boy.tile_collide = False
     elif collide(boy,tile):
         boy.collide = True
+        boy.tile_collide = True
         boy.fall_velocity = 0
+        boy.tile_dir = tile.dir
+        boy.move_degree = tile.move_velocity
     else:
         boy.collide = False
+        boy.tile_collide = False
 
 
 

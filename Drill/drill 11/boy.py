@@ -55,6 +55,8 @@ class IdleState:
     @staticmethod
     def do(boy):
         boy.frame = (boy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
+        if boy.tile_collide:
+            boy.x += boy.move_degree * game_framework.frame_time * boy.tile_dir
         boy.timer -= 1
         if boy.timer == 0:
             boy.add_event(SLEEP_TIMER)
@@ -95,6 +97,8 @@ class RunState:
         #boy.frame = (boy.frame + 1) % 8
         boy.frame = (boy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
         boy.x += boy.velocity * game_framework.frame_time
+        if boy.tile_collide:
+            boy.x+= boy.move_degree*game_framework.frame_time*boy.tile_dir
         boy.x = clamp(25, boy.x, 1600 - 25)
         if boy.jumping:
             boy.jump()
@@ -144,9 +148,10 @@ class Boy:
         self.image = load_image('animation_sheet.png')
         self.font = load_font('ENCR10B.TTF', 16)
         self.dir = 1
-        self.velocity, self.jump_velocity, self.fall_velocity = 0,10,0
+        self.velocity, self.jump_velocity, self.fall_velocity, self.move_degree, self.tile_dir = 0,10,0,0,0
         self.jumping,self.collide = False,True
         self.frame = 0
+        self.tile_collide = False
         self.event_que = []
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
