@@ -95,6 +95,13 @@ def update():
             speed,dir = tile.get_info()
             ball.get_tile_inf(speed, dir)
             ball.change_collide_with_tile()
+    if collide(boy, grass):
+        boy.collide = True
+    elif collide(boy,tile):
+        boy.collide = True
+    else:
+        boy.collide = False
+
 
 
 

@@ -50,8 +50,7 @@ class IdleState:
     @staticmethod
     def exit(boy, event):
         if event == SPACE:
-            boy.fire_ball()
-        pass
+            boy.jumping = True
 
     @staticmethod
     def do(boy):
@@ -59,6 +58,10 @@ class IdleState:
         boy.timer -= 1
         if boy.timer == 0:
             boy.add_event(SLEEP_TIMER)
+        if boy.jumping:
+            boy.jump()
+        elif (not boy.jumping) and (not boy.collide):
+            boy.fall()
 
     @staticmethod
     def draw(boy):
@@ -85,7 +88,7 @@ class RunState:
     @staticmethod
     def exit(boy, event):
         if event == SPACE:
-            boy.fire_ball()
+            boy.jumping = True
 
     @staticmethod
     def do(boy):
@@ -93,6 +96,10 @@ class RunState:
         boy.frame = (boy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
         boy.x += boy.velocity * game_framework.frame_time
         boy.x = clamp(25, boy.x, 1600 - 25)
+        if boy.jumping:
+            boy.jump()
+        elif (not boy.jumping) and (not boy.collide):
+            boy.fall()
 
     @staticmethod
     def draw(boy):
@@ -137,7 +144,8 @@ class Boy:
         self.image = load_image('animation_sheet.png')
         self.font = load_font('ENCR10B.TTF', 16)
         self.dir = 1
-        self.velocity, jump_velocity = 0,10
+        self.velocity, self.jump_velocity, self.fall_velocity = 0,10,0
+        self.jumping,self.collide = False,True
         self.frame = 0
         self.event_que = []
         self.cur_state = IdleState
@@ -145,13 +153,7 @@ class Boy:
 
     def get_bb(self):
         # fill here
-        return self.x - 50, self.y-50,self.x + 50, self.y+50
-
-
-    def fire_ball(self):
-        ball = Ball(self.x, self.y, self.dir * RUN_SPEED_PPS * 10)
-        game_world.add_object(ball, 1)
-
+        return self.x - 50, self.y-40,self.x + 50, self.y+50
 
     def add_event(self, event):
         self.event_que.insert(0, event)
@@ -177,7 +179,17 @@ class Boy:
             self.add_event(key_event)
 
     def jump(self):
-        
+        self.y += self.jump_velocity * game_framework.frame_time*100
+        self.jump_velocity -= RUN_SPEED_PPS/2000
+        if self.jump_velocity<=0:
+            self.jump_velocity = 10
+            self.jumping = False
+
+    def fall(self):
+        self.y += self.fall_velocity * 100 * game_framework.frame_time
+        self.fall_velocity -= RUN_SPEED_PPS/10000
+        if self.fall_velocity < -8:
+            self.fall_velocity = -8
 
 
 
